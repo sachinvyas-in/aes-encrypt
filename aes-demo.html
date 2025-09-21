@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AES Demo</title>
+  <!-- Load CryptoJS library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 40px; text-align: center; background: #f9f9f9; }
+    textarea, input { width: 80%; margin: 10px; padding: 10px; }
+    button { padding: 10px 20px; margin: 10px; cursor: pointer; }
+    h3 { color: #2c3e50; }
+    p { background: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>AES Encryption Demo</h1>
+
+  <textarea id="plaintext" placeholder="Enter text to encrypt"></textarea><br>
+  <input type="text" id="key" placeholder="Enter secret key"><br>
+  <button onclick="encryptText()">Encrypt</button>
+  <button onclick="decryptText()">Decrypt</button>
+
+  <h3>Encrypted Text:</h3>
+  <p id="encrypted"></p>
+
+  <h3>Decrypted Text:</h3>
+  <p id="decrypted"></p>
+
+  <script>
+    let encryptedText = "";
+
+    function encryptText() {
+      let text = document.getElementById("plaintext").value;
+      let key = document.getElementById("key").value;
+
+      // AES encryption using CryptoJS
+      encryptedText = CryptoJS.AES.encrypt(text, key).toString();
+      document.getElementById("encrypted").innerText = encryptedText;
+    }
+
+    function decryptText() {
+      let key = document.getElementById("key").value;
+
+      // AES decryption using CryptoJS
+      let bytes  = CryptoJS.AES.decrypt(encryptedText, key);
+      let originalText = bytes.toString(CryptoJS.enc.Utf8);
+
+      document.getElementById("decrypted").innerText = originalText;
+    }
+  </script>
+</body>
+</html>
+
